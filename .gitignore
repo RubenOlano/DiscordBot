@@ -171,3 +171,6 @@ dist/
 
 # ignore yarn.lock
 yarn.lock
+
+#ignore typings
+Typings/

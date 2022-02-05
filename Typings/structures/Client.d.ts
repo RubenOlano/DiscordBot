@@ -1,6 +1,6 @@
 import { Client as DiscordClient, ClientOptions } from "discord.js";
 declare class Client extends DiscordClient {
-    constructor(options: ClientOptions, token: string);
+    constructor(options: ClientOptions);
     start(): void;
     fetchData(): Promise<any>;
 }

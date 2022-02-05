@@ -7,15 +7,16 @@ import {
 } from "discord.js";
 import { config } from "dotenv";
 config();
-const twit_token = process.env.TWIT_TOKEN;
+const { TWIT_TOKEN: twit_token, TOKEN: token } = process.env;
 
 class Client extends DiscordClient {
-  public constructor(options: ClientOptions, token: string) {
+  public constructor(options: ClientOptions) {
     super(options);
-    this.login(token);
   }
 
   start() {
+    this.login(token);
+
     this.once("ready", () => {
       console.log(`Logged in as ${this?.user?.tag}`);
       this.user.setPresence({
@@ -32,8 +33,10 @@ class Client extends DiscordClient {
           embeds: [
             new MessageEmbed()
               .setTitle("Profile")
+              .setColor("BLURPLE")
               .setThumbnail(message.author.avatarURL())
-              .addField("Name", message.author.tag, true),
+              .addField("Name", message.author.username, true)
+              .addField("Tag", message.author.discriminator, true),
           ],
         });
       else if (message.cleanContent === "trending") {
