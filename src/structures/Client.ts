@@ -58,8 +58,8 @@ class Client extends DiscordClient {
     return data[0].trends.slice(0, 10).map((item) => {
       return new MessageEmbed()
         .setTitle(item.name)
-        .addField("# of tweets", `${item.tweet_volume}`, true)
-        .setThumbnail(item.url)
+        .addField("# of tweets", `${item.tweet_volume || "..."}`, true)
+        .setThumbnail("https://cdn-icons-png.flaticon.com/512/124/124021.png")
         .setColor("BLUE")
         .setURL(item.url);
     });
