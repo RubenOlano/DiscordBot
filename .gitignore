@@ -89,7 +89,7 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
-dist
+dist/
 
 # Gatsby files
 .cache/
@@ -174,3 +174,4 @@ yarn.lock
 
 #ignore typings
 Typings/
+dist/
