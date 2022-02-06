@@ -1,3 +1,4 @@
+import { ApplicationCommandOptionType } from "discord-api-types";
 import { Client } from "../Client";
 
 module.exports = {

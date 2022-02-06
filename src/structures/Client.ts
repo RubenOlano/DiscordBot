@@ -1,10 +1,4 @@
-import axios from "axios";
-import {
-  Client as DiscordClient,
-  ClientOptions,
-  Message,
-  MessageEmbed,
-} from "discord.js";
+import { Client as DiscordClient, ClientOptions } from "discord.js";
 import { config } from "dotenv";
 config();
 const { TOKEN: token } = process.env;
