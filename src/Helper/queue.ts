@@ -8,11 +8,11 @@ export const queueCommand = (
 ) => {
     const serverQueue = queue.get(interaction.guild!.id);
 
-    if (!serverQueue) {
+    if (!serverQueue || !serverQueue.songs) {
         interaction.followUp({ content: "No queue for this server" });
     }
 
     const queueString = serverQueue?.songs.map((song) => song.title);
 
-    interaction.followUp({ content: queueString!.join("||") });
+    interaction.followUp({ content: queueString!.join(" =|=|= ") });
 };
