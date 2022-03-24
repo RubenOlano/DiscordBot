@@ -98,7 +98,7 @@ export const playFunction = async (
     }
 };
 
-const play = (
+export const play = (
     guild: string,
     song: Song,
     interaction: BaseCommandInteraction
