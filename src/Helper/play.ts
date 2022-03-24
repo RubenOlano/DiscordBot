@@ -80,7 +80,9 @@ export const playFunction = async (
                 queue.delete(guild!.id);
 
                 return interaction.followUp({ content: "Error" });
-            } else return play(guild!.id, nextSong, interaction);
+            } else {
+                return play(guild!.id, nextSong, interaction);
+            }
         } catch (error) {
             queue.delete(guild!.id);
             console.log(error);
@@ -127,7 +129,9 @@ export const play = (
         if (!nextSong) {
             queue.delete(guild);
             serverQueue!.connection!.destroy();
-        } else play(guild, nextSong, interaction);
+        } else {
+            play(guild, nextSong, interaction);
+        }
     });
 
     return interaction.followUp({ content: `Now playing **${song.title}**` });

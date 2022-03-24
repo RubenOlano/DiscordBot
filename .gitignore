@@ -175,3 +175,6 @@ yarn.lock
 #ignore typings
 Typings/
 dist/
+
+#ignore objects
+Objects/
