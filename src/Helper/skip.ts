@@ -12,23 +12,17 @@ export const skip = (_client: Client, interaction: BaseCommandInteraction) => {
     serverQueue?.songs.shift();
     const nextSong = serverQueue?.songs.at(0);
 
-    console.log(nextSong?.title);
-
     if (!vc) {
-        interaction.followUp({
+        return interaction.followUp({
             content: "Must be in a voice channel to use this command",
         });
-
-        return;
     }
 
     if (!serverQueue || !nextSong) {
-        interaction.followUp({
+        return interaction.followUp({
             content: "No songs left to skip!",
         });
-
-        return;
     }
 
-    play(guild!.id, nextSong, interaction);
+    return play(guild!.id, nextSong, interaction);
 };

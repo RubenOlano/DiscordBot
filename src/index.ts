@@ -6,6 +6,7 @@ import { ActivityTypes } from "discord.js/typings/enums";
 import { createInteraction } from "./listeners/interactionCreate";
 import { onMessage } from "./listeners/onMessage";
 import { ready } from "./listeners/ready";
+import { voiceChange } from "./listeners/updateVoice";
 
 const clientOptions: ClientOptions = {
     intents: [
@@ -27,5 +28,5 @@ const client = new Client(clientOptions);
 ready(client);
 createInteraction(client);
 onMessage(client);
-
+voiceChange(client);
 client.login(process.env.TOKEN);

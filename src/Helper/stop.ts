@@ -9,18 +9,19 @@ export const stop = (_client: Client, interaction: BaseCommandInteraction) => {
     const serverQueue = queue.get(guild!.id);
 
     if (!vc) {
-        interaction.followUp({
+        return interaction.followUp({
             content: "Must be in a voice channel to use this command",
         });
     }
 
     if (!serverQueue) {
-        interaction.followUp({
+        return interaction.followUp({
             content: "No songs to stop",
         });
     }
 
     serverQueue!.songs = [];
     serverQueue!.connection?.destroy();
-    interaction.followUp({ content: "The queue has been cleared" });
+
+    return interaction.followUp({ content: "The queue has been cleared" });
 };
