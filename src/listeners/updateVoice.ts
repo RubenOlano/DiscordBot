@@ -1,21 +1,24 @@
 import { Client } from "discord.js";
 
-import { time } from "../Structs/time";
+import { checkUser } from "../lib/database";
 
 export const voiceChange = (client: Client) => {
-    client.on("voiceStateUpdate", (oldState, newState) => {
+    client.on("voiceStateUpdate", async (oldState, newState) => {
         if (oldState.channelId === newState.channelId) return;
 
         const userID = oldState?.member?.id!;
-
-        const userState = time.get(userID);
+        const userData = await checkUser(userID);
 
         if (!oldState.channelId && newState.channelId) {
-            time.set(userID, { timeLeft: undefined, timeJoined: new Date() });
+            userData.timeJoined = new Date();
+            userData.timeLeft = undefined;
         } else if (oldState.channelId && !newState.channelId) {
-            time.set(userID, { ...userState, timeLeft: new Date() });
+            userData.timeLeft = new Date();
         } else if (oldState.channelId !== newState.channelId) {
-            time.set(userID, { timeJoined: new Date(), timeLeft: undefined });
+            userData.timeLeft = undefined;
+            userData.timeJoined = new Date();
         }
+
+        await userData.save();
     });
 };

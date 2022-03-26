@@ -3,6 +3,7 @@ import "dotenv/config";
 import { Client, ClientOptions, Intents } from "discord.js";
 import { ActivityTypes } from "discord.js/typings/enums";
 
+import { connect } from "./lib/database";
 import { createInteraction } from "./listeners/interactionCreate";
 import { onMessage } from "./listeners/onMessage";
 import { ready } from "./listeners/ready";
@@ -29,4 +30,10 @@ ready(client);
 createInteraction(client);
 onMessage(client);
 voiceChange(client);
-client.login(process.env.TOKEN);
+
+const main = async () => {
+    await connect();
+    await client.login(process.env.TOKEN);
+};
+
+main();

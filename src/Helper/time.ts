@@ -1,6 +1,6 @@
 import { BaseCommandInteraction, Client } from "discord.js";
 
-import { time } from "../Structs/time";
+import { checkUser } from "../lib/database";
 
 const getMinutes = (join: Date, leave: Date) => {
     let diff = (leave.getTime() - join.getTime()) / 1000;
@@ -10,7 +10,7 @@ const getMinutes = (join: Date, leave: Date) => {
     return Math.abs(Math.round(diff));
 };
 
-export const timeCommand = (
+export const timeCommand = async (
     _client: Client,
     interaction: BaseCommandInteraction
 ) => {
@@ -18,17 +18,17 @@ export const timeCommand = (
 
     const id = user!.value?.toString().replace(/[!<>@]/g, "");
 
-    const userTime = time.get(id!);
+    const userData = await checkUser(id!);
 
-    if (userTime && userTime.timeJoined) {
-        if (!userTime?.timeLeft) {
-            const diff = getMinutes(userTime.timeJoined, new Date());
+    if (userData.timeJoined) {
+        if (!userData.timeLeft) {
+            const diff = getMinutes(userData.timeJoined, new Date());
 
             interaction.followUp({
                 content: `<@${id}> has been in the channel for ${diff} minutes`,
             });
         } else {
-            const diff = getMinutes(userTime.timeJoined, userTime.timeLeft);
+            const diff = getMinutes(userData.timeJoined, userData.timeLeft);
 
             interaction.followUp({
                 content: `<@${id}> was in the channel for ${diff} minutes`,

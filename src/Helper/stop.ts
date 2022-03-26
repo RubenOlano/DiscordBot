@@ -3,8 +3,11 @@ import { BaseCommandInteraction, Client } from "discord.js";
 import { queue } from "../Structs/queue";
 
 export const stop = (_client: Client, interaction: BaseCommandInteraction) => {
-    const { guild } = interaction!;
-    const member = guild!.members.cache.get(interaction.user.id);
+    const {
+        guild,
+        user: { id },
+    } = interaction;
+    const member = guild!.members.cache.get(id);
     const vc = member?.voice?.channel;
     const serverQueue = queue.get(guild!.id);
 
@@ -20,8 +23,8 @@ export const stop = (_client: Client, interaction: BaseCommandInteraction) => {
         });
     }
 
-    serverQueue!.songs = [];
-    serverQueue!.connection?.destroy();
+    serverQueue.songs = [];
+    serverQueue.connection?.destroy();
 
     return interaction.followUp({ content: "The queue has been cleared" });
 };

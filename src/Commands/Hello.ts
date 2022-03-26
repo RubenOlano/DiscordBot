@@ -7,7 +7,7 @@ export const Hello: Command = {
     description: "Returns a greeting",
     type: "CHAT_INPUT",
     run: async (_client: Client, interaction: BaseCommandInteraction) => {
-        await interaction.followUp({
+        return await interaction.followUp({
             ephemeral: true,
             content: `Hello ${interaction.user}`,
         });

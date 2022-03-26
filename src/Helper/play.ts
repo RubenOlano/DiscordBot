@@ -21,14 +21,14 @@ export const playFunction = async (
     const vc = member?.voice?.channel;
 
     if (!vc)
-        return interaction.followUp({
+        return await interaction.followUp({
             content: "Must be in a voice channel to use this command",
         });
 
     const link =
         (interaction.options.get("query")?.value as string) || undefined;
 
-    if (!link) return interaction.followUp({ content: "Invalid link" });
+    if (!link) return await interaction.followUp({ content: "Invalid link" });
 
     let song: Song = {} as Song;
 
@@ -79,7 +79,7 @@ export const playFunction = async (
             if (!nextSong) {
                 queue.delete(guild!.id);
 
-                return interaction.followUp({ content: "Error" });
+                return await interaction.followUp({ content: "Error" });
             } else {
                 return play(guild!.id, nextSong, interaction);
             }
@@ -87,20 +87,20 @@ export const playFunction = async (
             queue.delete(guild!.id);
             console.log(error);
 
-            return interaction.followUp({ content: error });
+            return await interaction.followUp({ content: error });
         }
     } else {
         const serverQueue = queue.get(guild!.id);
 
         serverQueue!.songs.push(song);
 
-        return interaction.followUp({
+        return await interaction.followUp({
             content: `Added **${song.title}** to the queue`,
         });
     }
 };
 
-export const play = (
+export const play = async (
     guild: string,
     song: Song,
     interaction: BaseCommandInteraction
@@ -111,7 +111,7 @@ export const play = (
         serverQueue!.connection!.destroy();
         queue.delete(guild);
 
-        return interaction.followUp({ content: "End of queue" });
+        return await interaction.followUp({ content: "End of queue" });
     }
 
     const stream = ytdl(song.url, { filter: "audioonly" });
@@ -134,5 +134,7 @@ export const play = (
         }
     });
 
-    return interaction.followUp({ content: `Now playing **${song.title}**` });
+    return await interaction.followUp({
+        content: `Now playing **${song.title}**`,
+    });
 };
