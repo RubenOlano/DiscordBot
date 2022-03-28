@@ -55,7 +55,7 @@ export const playFunction = async (
 
     if (!hasID) {
         const queueData: QueueConstruct = {
-            textChannel: interaction?.channel,
+            textChannel: interaction?.channel || undefined,
             voiceChannel: vc,
             songs: [],
             playing: true,

@@ -31,16 +31,15 @@ export const skip = async (
         });
     }
 
+    await interaction.followUp({
+        content: `Skipped ${currentSong!.title}`,
+    });
+
     if (!nextSong) {
         serverQueue.connection?.destroy();
-        await interaction.followUp({
-            content: `Skipped ${currentSong!.title}`,
-        });
 
         return await interaction.followUp({ content: `Queue cleared!` });
     }
-
-    await interaction.followUp({ content: `Skipped ${currentSong!.title}` });
 
     return play(guild!.id, nextSong, interaction);
 };

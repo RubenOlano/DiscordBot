@@ -4,7 +4,7 @@ import { TextBasedChannel, VoiceBasedChannel } from "discord.js";
 import { Song } from "./song";
 
 export interface QueueConstruct {
-    textChannel?: TextBasedChannel | null;
+    textChannel?: TextBasedChannel | undefined;
     voiceChannel: VoiceBasedChannel;
     songs: Song[];
     connection?: VoiceConnection;

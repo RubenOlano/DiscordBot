@@ -2,12 +2,18 @@ import { BaseCommandInteraction, Client } from "discord.js";
 
 import { checkUser } from "../lib/database";
 
-const getMinutes = (join: Date, leave: Date) => {
-    let diff = (leave.getTime() - join.getTime()) / 1000;
+const getDiff = (join: Date, leave: Date) => {
+    const diff = (leave.getTime() - join.getTime()) / 1000;
 
-    diff /= 60;
-
-    return Math.abs(Math.round(diff));
+    if (diff < 60) {
+        return `${Math.floor(diff)} seconds`;
+    } else if (diff < 3600) {
+        return `${Math.floor(diff / 60)} minutes`;
+    } else if (diff < 86_400) {
+        return `${Math.floor(diff / 3600)} hours`;
+    } else {
+        return `${Math.floor(diff / 86_400)} day(s)`;
+    }
 };
 
 export const timeCommand = async (
@@ -22,16 +28,16 @@ export const timeCommand = async (
 
     if (userData.timeJoined) {
         if (!userData.timeLeft) {
-            const diff = getMinutes(userData.timeJoined, new Date());
+            const diff = getDiff(userData.timeJoined, new Date());
 
             interaction.followUp({
-                content: `<@${id}> has been in the channel for ${diff} minutes`,
+                content: `<@${id}> has been in the channel for ${diff}`,
             });
         } else {
-            const diff = getMinutes(userData.timeJoined, userData.timeLeft);
+            const diff = getDiff(userData.timeJoined, userData.timeLeft);
 
             interaction.followUp({
-                content: `<@${id}> was in the channel for ${diff} minutes`,
+                content: `<@${id}> was in the channel for ${diff}`,
             });
         }
     } else {
