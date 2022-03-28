@@ -2,7 +2,7 @@ import "dotenv/config";
 
 import mongoose from "mongoose";
 
-import { User } from "../types/user";
+import { IUser, User } from "../types/user";
 
 const MONGO_URI = process.env.MONGO_URI as string;
 
@@ -17,7 +17,7 @@ export const connect = async (): Promise<void> => {
     });
 };
 
-export const checkUser = async (userId: string) => {
+export const checkUser = async (userId: string): Promise<IUser> => {
     let user = await User.findOne({ discordId: userId });
 
     if (!user) {
