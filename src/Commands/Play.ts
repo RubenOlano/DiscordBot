@@ -3,7 +3,7 @@ import { playFunction } from "../Helper/play";
 
 export const Play: Command = {
     name: "play",
-    description: "Queue a video based on the url that is given",
+    description: "Queue a video based on the url or name that is given",
     type: "CHAT_INPUT",
     options: [
         {

@@ -2,7 +2,7 @@ import { BaseCommandInteraction, Client } from "discord.js";
 
 import { checkUser } from "../lib/database";
 
-const getDiff = (join: Date, leave: Date) => {
+const getDiff = (join: Date, leave: Date): string => {
     const diff = (leave.getTime() - join.getTime()) / 1000;
 
     if (diff < 60) {
@@ -20,11 +20,11 @@ export const timeCommand = async (
     _client: Client,
     interaction: BaseCommandInteraction
 ) => {
-    const user = interaction.options.get("user");
+    const user = interaction.options.get("user")!.value!;
 
-    const id = user!.value?.toString().replace(/[!<>@]/g, "");
+    const id = user.toString().replace(/[!<>@]/g, "");
 
-    const userData = await checkUser(id!);
+    const userData = await checkUser(id);
 
     if (userData.timeJoined) {
         if (!userData.timeLeft) {
