@@ -8,7 +8,7 @@ export const Play: Command = {
     options: [
         {
             name: "query",
-            description: "Enter the a song or video you would like to play",
+            description: "Enter a song name or url to play",
             type: "STRING",
             required: true,
         },
