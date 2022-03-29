@@ -1,8 +1,9 @@
 import { BaseCommandInteraction, Client } from "discord.js";
+import { commandFunction } from "src/types/commandFunction";
 
 import { queue } from "../Structs/queue";
 
-export const queueCommand = async (
+export const queueCommand: commandFunction = async (
     _client: Client,
     interaction: BaseCommandInteraction
 ) => {

@@ -6,13 +6,14 @@ import {
     StreamType,
 } from "@discordjs/voice";
 import { BaseCommandInteraction, Client } from "discord.js";
+import { commandFunction } from "src/types/commandFunction";
 import yts from "yt-search";
 import ytdl from "ytdl-core";
 
 import { queue, QueueConstruct } from "../Structs/queue";
 import { Song } from "../Structs/song";
 
-export const playFunction = async (
+export const playFunction: commandFunction = async (
     _client: Client,
     interaction: BaseCommandInteraction
 ) => {

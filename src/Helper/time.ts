@@ -1,4 +1,5 @@
 import { BaseCommandInteraction, Client } from "discord.js";
+import { commandFunction } from "src/types/commandFunction";
 
 import { checkUser } from "../lib/database";
 
@@ -16,7 +17,7 @@ const getDiff = (join: Date, leave: Date): string => {
     }
 };
 
-export const timeCommand = async (
+export const timeCommand: commandFunction = async (
     _client: Client,
     interaction: BaseCommandInteraction
 ) => {

@@ -1,8 +1,12 @@
 import { BaseCommandInteraction, Client } from "discord.js";
+import { commandFunction } from "src/types/commandFunction";
 
 import { queue } from "../Structs/queue";
 
-export const stop = (_client: Client, interaction: BaseCommandInteraction) => {
+export const stop: commandFunction = (
+    _client: Client,
+    interaction: BaseCommandInteraction
+) => {
     const {
         guild,
         user: { id },

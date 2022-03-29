@@ -1,9 +1,10 @@
 import { BaseCommandInteraction, Client } from "discord.js";
+import { commandFunction } from "src/types/commandFunction";
 
 import { queue } from "../Structs/queue";
 import { play } from "./play";
 
-export const skip = async (
+export const skip: commandFunction = async (
     _client: Client,
     interaction: BaseCommandInteraction
 ) => {
